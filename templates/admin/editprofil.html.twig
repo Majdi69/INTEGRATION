@@ -1,0 +1,9 @@
+{% extends 'back.html.twig' %}
+
+
+{% block body %}
+    <p>Modification du profil de  {{ app.user.name }} {{ app.user.firstname }}</p>
+    <div align="center" style="margin-top: 300px" class="card-footer">
+{{ form(form) }}
+    </div>
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends 'back.html.twig' %}
+
+{% block title %}Hello AdminController!{% endblock %}
+
+
+{% block body %}
+    {% for message in app.flashes('error') %}
+        <div class="col-xs4">
+            <div class="p-3 my-2 rounded-2 error">{{ message }}</div>
+        </div>
+    {% endfor %}
+    <div style="margin-top: 300px" align="center">
+        <h1>Welcome to your profile</h1>
+        <p align="center">profil de  {{ app.user.name }} {{ app.user.firstname }}</p>
+        <div>
+            <div>Nom: {{ app.user.name }}</div>
+            <div>Prenom: {{ app.user.firstname }}</div>
+            <div>Email: {{ app.user.email }}</div>
+            <a  href="{{ path('admin_profil_modifier') }}" class="btn blue">Modifier le profil</a>
+            <a href="{{ path('admin_pass_modifier') }}" class="btn blue">Modifier le mot de passe</a>
+            <a href="{{ path('listusers') }}" class="btn blue">Show all Users</a>
+            <a href="{{ path('app_message') }}" class="btn blue">Messagerie</a>
+        </div>
+    </div>
+{% endblock %}

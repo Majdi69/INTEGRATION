@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Register{% endblock %}
+
+{% block body %}
+    {% for flash_error in app.flashes('verify_email_error') %}
+        <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
+    {% endfor %}
+    <div align="center">
+        <h1>Register</h1>
+    </div>
+<section class="card-footer" >
+    <div align="center">
+    {{ form_start(registrationForm,{'attr': {'novalidate': 'novalidate'}} ) }}
+    {{form_label(registrationForm.name,"Nom") }}
+    {{ form_widget(registrationForm.name) }}
+    {{form_errors(registrationForm.name) }}
+    </div>
+    <div align="center">
+    {{form_label(registrationForm.firstname,"Prenom") }}
+    {{ form_widget(registrationForm.firstname) }}
+    {{form_errors(registrationForm.firstname) }}
+    </div>
+    <div align="center">
+    {{form_label(registrationForm.firstname,"Email") }}
+    {{ form_widget(registrationForm.email) }}
+    {{form_errors(registrationForm.email) }}
+    </div>
+    <div align="center">
+    {{form_label(registrationForm.plainPassword,"Password") }}
+    {{ form_widget(registrationForm.plainPassword, {
+        label: 'Password'
+    }) }}
+    {{form_errors(registrationForm.plainPassword) }}
+    {{ form_row(registrationForm.agreeTerms) }}
+    </div>
+
+    <div align="center">
+        <button type="submit" class="btn btn-dark">Register</button>
+    </div>
+    {{ form_end(registrationForm) }}
+</section>
+{% endblock %}
