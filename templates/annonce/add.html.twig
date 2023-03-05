@@ -1,0 +1,112 @@
+{% extends 'base.html.twig'  %}
+
+{% block body %}
+    <!-- ======= Breadcrumbs ======= -->
+    <section id="breadcrumbs" class="breadcrumbs">
+        <div class="container">
+
+            <div class="d-flex justify-content-between align-items-center">
+                <h2>Ajouter annonce</h2>
+                <ol>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a  href="{{ path('annonce_aff') }}">Annonces</a></li>
+                </ol>
+            </div>
+
+        </div>
+    </section><!-- End Breadcrumbs -->
+<div style="display:flex; align-items:center;justify-content: center ;  margin-bottom: 100px" >
+
+    <div class="row mt-5 justify-content-center" data-aos="fade-up">
+        <div class="col-lg-10">
+
+           {{ form_start(f,{'attr': {'novalidate': 'novalidate'}} ) }}
+
+
+            <div class="row">
+
+                    <div class="col-md-6 form-group" style="margin-bottom: 11px"  >
+                        {{ form_label(f.nom, null, {'label': 'Nom:'}) }}
+                        {{ form_widget(f.nom,{'attr':{'class':'form-control'}}) }}
+                        {{ form_errors(f.nom) }}
+
+                    </div>
+
+                    <div class="col-md-6 form-group mt-3 mt-md-0" >
+                        {{ form_label(f.tel, null, {'label': 'Télephone:'}) }}
+                        {{ form_widget(f.tel,{'attr':{'class':'form-control'}}) }}
+                        {{ form_errors(f.tel) }}
+                    </div>
+            </div>
+                <div class="form-group mt-3">
+                    {{ form_label(f.local, null, {'label': 'Localisation:'}) }}
+                    {{ form_widget(f.local,{'attr':{'class':'form-control'}}) }}
+                    {{ form_errors(f.local) }}
+                </div>
+                <div class="form-group mt-3">
+                    {{ form_label(f.email, null, {'label': 'Email:'}) }}
+                    {{ form_widget(f.email,{'attr':{'class':'form-control'}}) }}
+                    {{ form_errors(f.email) }}
+                </div>
+                <div class="form-group mt-3" style="margin-bottom: 11px">
+                    {{ form_label(f.titre, null, {'label': 'Titre:'}) }}
+                    {{ form_widget(f.titre,{'attr':{'class':'form-control'}}) }}
+                    {{ form_errors(f.titre) }}
+                </div>
+                <div class="row">
+                <div class="col-md-6 form-group" style="margin-bottom: 11px">
+                    <label>Catégories</label>
+                    <select name="categorie" class="form-control"  >
+                        <option value="Appareil médical" >Appareil médical</option>
+                        <option value="Equipement médical" >Equipement médical</option>
+                        <option value="Fourniture médical " >Fourniture médical </option>
+                        <option value="Autre" >Autres</option>
+                    </select>
+                </div>
+                <div class="col-md-6 form-group mt-3 mt-md-0">
+                    <label>Etat</label>
+                   <select name="etat" class="form-control"  >
+                       <option value="Disponible" >Disponible</option>
+                      <!-- <option value="Non_Disponible" >Non Disponible</option> -->
+                   </select>
+                </div>
+
+                </div>
+                <div class="form-group mt-3" style="margin-bottom: 11px">
+                    {{ form_label(f.descreption, null, {'label': 'Descreption:'}) }}
+                    {{ form_widget(f.descreption,{'attr':{'class':'form-control'}}) }}
+                    {{ form_errors(f.descreption) }}
+                </div>
+                <div class="col-md-6 form-group" style="margin-bottom: 11px">
+                    {{ form_row(f.photo) }}
+                </div>
+                <div class="col-md-6 form-group" style="margin-bottom: 11px">
+                    {{ form_label(f.tag, null, {'label': 'Tags:'}) }}
+                    {{ form_widget(f.tag,{'attr':{'class':'form-control'}}) }}
+                    {{ form_errors(f.tag) }}
+                </div>
+                 <div class="text-center" >
+
+                     <button type="submit" style="background-color: #1bbd36 ;
+                     padding: 10px 24px ;
+                     color: #fff;
+                     transition: 0.4s;
+                     border: 0;
+                     border-radius: 4px;">Ajouter</button>
+
+
+                 </div>
+
+            {{ form_end (f) }}
+
+        </div>
+
+    </div>
+
+</div>
+
+
+{% endblock  %}
+
+
+

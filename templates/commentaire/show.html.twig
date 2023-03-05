@@ -1,0 +1,94 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <!-- ======= Breadcrumbs ======= -->
+    <section id="breadcrumbs" class="breadcrumbs">
+        <div class="container">
+
+            <div class="d-flex justify-content-between align-items-center">
+                <h2>Annonces</h2>
+                <ol>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a  href="{{ path('annonce_aff') }}">Annonces</a></li>
+                </ol>
+            </div>
+
+        </div>
+    </section><!-- End Breadcrumbs -->
+    <div  style="
+    font-weight: 500;
+    font-size: 14px;
+    letter-spacing: 1px;
+    display: inline-block;
+    padding: 12px 32px;
+    border-radius: 4px;
+    transition: 0.5s;
+    line-height: 1;
+    margin: 10px;
+    color: #fff3cd;
+    -webkit-animation-delay: 0.8s;
+    animation-delay: 0.8s;
+    border: 2px solid #1bbd36;
+    font-family: Roboto, sans-serif;">
+
+        <a  href="{{ path('addcommForm',{'idAnnonce':idAnnonce}) }}">Ajouter un commentaire </a>
+
+    </div>
+    <section id="blog" class="blog">
+        <div class="container" data-aos="fade-up">
+
+            <div class="row">
+
+                <div class="col-lg-8 entries">
+                    {% for blog in f %}
+                        <article class="entry">
+
+                            <div class="d-flex"><div class="comment-img">
+                                    <img src="assets/img/blog/comments-1.jpg" alt="">
+                                </div>
+                                <div>
+                                    <h5>{{ blog.nom }}</h5>
+                                    {{ blog.date | date('d-m-Y') }}
+                                    <p>
+                                        {{ blog.text }}
+                                    </p>
+                                </div>
+                            </div>
+                            <a  href="{{ path('comm_upd',{'id':blog.id}) }}">Modifier</a>
+                            <a  href="{{ path('comm_remove',{'id':blog.id}) }}">Supprimer</a>
+                        </article>  <!-- End blog entry -->
+                    {% endfor %}
+
+                </div><!-- End blog entries list -->
+
+                <div class="col-lg-4">
+
+                    <div class="sidebar">
+
+
+
+                        <h3 class="sidebar-title">Categories</h3>
+                        <div class="sidebar-item categories">
+
+                            <ul>
+                                <li><a href="#">Appareil médical <span>(25)</span></a></li>
+                                <li><a href="#">Equipement médical <span>(12)</span></a></li>
+                                <li><a href="#">Fourniture médical <span>(5)</span></a></li>
+                                <li><a href="#">Autres <span>(22)</span></a></li>
+
+                            </ul>
+
+                        </div><!-- End sidebar categories-->
+
+
+
+
+
+                    </div><!-- End sidebar -->
+
+                </div><!-- End blog sidebar -->
+
+            </div>
+
+        </div>
+    </section><!-- End Blog Section -->
+{% endblock %}

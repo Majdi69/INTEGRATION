@@ -1,0 +1,69 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <!-- ======= Breadcrumbs ======= -->
+    <section id="breadcrumbs" class="breadcrumbs">
+        <div class="container">
+
+            <div class="d-flex justify-content-between align-items-center">
+                <h2> Modifier Commentaire</h2>
+                <ol>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="{{ path('annonce_aff') }}">Annonces</a></li>
+                </ol>
+            </div>
+
+        </div>
+    </section><!-- End Breadcrumbs -->
+    <div style="display:flex; align-items:center;justify-content: center ;  margin-bottom: 100px">
+
+        <div class="row mt-5 justify-content-center" data-aos="fade-up">
+            <div class="col-lg-10">
+
+                {{ form_start(f,{'attr': {'novalidate': 'novalidate'}} ) }}
+
+                <div class="row">
+
+                    <div class="col-md-6 form-group" style="margin-bottom: 11px">
+                        {{ form_label(f.nom, null, {'label': 'Nom:'}) }}
+                        {{ form_widget(f.nom,{'attr':{'class':'form-control'}}) }}
+                        {{ form_errors(f.nom) }}
+
+                    </div>
+
+
+                </div>
+
+                <div class="form-group mt-3" style="margin-bottom: 11px">
+                    {{ form_label(f.text, null, {'label': 'Commentaire:'}) }}
+                    {{ form_widget(f.text,{'attr':{'class':'form-control'}}) }}
+                    {{ form_errors(f.text) }}
+                </div>
+
+
+                <div class="text-center">
+
+                    <button type="submit" style="background-color: #1bbd36 ;
+                     padding: 10px 24px ;
+                     color: #fff;
+                     transition: 0.4s;
+                     border: 0;
+                     border-radius: 4px;">Modifier
+                    </button>
+
+
+                </div>
+
+                {{ form_end (f) }}
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+{% endblock %}
+
+
+
