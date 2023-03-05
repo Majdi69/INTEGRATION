@@ -1,0 +1,60 @@
+{% extends 'back.html.twig' %}
+  {% block body %}
+
+      <div class="container">
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <center>
+              <h1> Liste des Articles</h1>
+
+              <table class="table">
+                  <thead>
+                  <tr>
+                      <th scope="col">Id</th>
+                      <th scope="col">Type </th>
+
+                  </tr>
+                  </thead>
+                  <tbody>
+                  {%  for a in  b %}
+                      <tr>
+                          <td scope="row">{{a.id}}</td>
+                          <td>{{a.type}}</td>
+
+
+                          <td>  <a class="btn btn-sm btn-success" href="{{ path('modifierarticle', {id:a.id})}}">Modifier</a></td>
+
+                          <td>  <a class="btn btn-sm btn-danger" href="{{ path('supp', {id:a.id}) }}">Supprimer</a></td>
+
+
+
+
+
+                      </tr>
+
+                  {%  endfor %}
+
+                  <span class="badge badge-sm bg-gradient-faded-success-vertical">  {{ knp_pagination_render(b) }} </span>
+
+                  </tbody>
+              </table>
+              <form action="{{ path('addarticle') }}">
+                  <button class="btn btn-round btn-facebook">Ajouter</button>
+              </form>
+
+
+
+          </center>
+      </div>
+      {% for message in app.flashes('info') %}
+      <div class="alert alert-success">
+          {{message}}
+      </div>
+      {% endfor %}
+
+
+  {% endblock %}

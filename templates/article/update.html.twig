@@ -1,0 +1,21 @@
+{% extends 'back.html.twig' %}
+{% block body %}
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<div class="container">
+    <center>
+        <div>
+            {{form_start(b,{'attr': {'novalidate': 'novalidate'}})}}
+            {{ form_widget(b) }}
+            {{ form_errors(b) }}
+
+            <button type="submit" class="btn btn-round btn-facebook">Modifier</button>
+            {{form_end(b)}}
+        </div>
+    </center>
+</div>
+{% endblock %}
