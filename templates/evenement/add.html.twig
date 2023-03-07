@@ -1,0 +1,37 @@
+{% extends 'back.html.twig' %}
+{% block body %}
+    <!-- Load Flashy default CSS -->
+    <link rel="stylesheet" href="{{ asset('bundles/mercuryseriesflashy/css/flashy.css') }}">
+<div class="page-container">
+    <div class="main-content">
+        <div class="section__content section__content--p30">
+            <div class="container-fluid">
+            <div align="center" class="card-group">
+
+                            <strong>Ajouter</strong> Un Evenement
+                        </div>
+
+
+      {{ form_start(form,{'attr': {'novalidate': 'novalidate'}} ) }}
+      {{ form_errors(form.nom) }}
+      {{ form_errors(form.lieu) }}</br>
+      {{ form_errors(form.date) }}</br>
+      {{ form_errors(form.Description) }}</br>
+      {{ form_errors(form.datefin) }}</br>
+      {{ form_errors(form.nbrPersonnes) }}</br>
+    {{ form_errors(form.photo) }}</br>
+      {{ form_widget(form) }}
+      </br>
+
+
+      <button type="submit" class="btn btn-success">Créer evenement</button>
+
+      {{ form_end(form) }}
+
+  </div>
+</div>
+        </div>
+    </div>
+
+
+{% endblock %}

@@ -1,0 +1,110 @@
+
+{% extends 'base.html.twig' %}
+{% block body %}
+    <!-- ======= Breadcrumbs ======= -->
+    <section id="breadcrumbs" class="breadcrumbs">
+
+    </section><!-- End Breadcrumbs -->
+    <div  style="
+    font-weight: 500;
+    font-size: 14px;
+    letter-spacing: 1px;
+    display: inline-block;
+    padding: 12px 32px;
+    border-radius: 4px;
+    transition: 0.5s;
+    line-height: 1;
+    margin: 10px;
+    color: #fff3cd;
+    -webkit-animation-delay: 0.8s;
+    animation-delay: 0.8s;
+    border: 2px solid #1bbd36;
+    font-family: Roboto, sans-serif;">
+
+
+
+    </div>
+    <section id="blog" class="blog">
+        <div class="container" data-aos="fade-up">
+
+            <div class="row">
+
+                <div class="col-lg-8 entries">
+                    {% for event in tabEvent %}
+                        {% if not is_granted('IS_AUTHENTICATED_FULLY') %}
+                        <a  href="{{ path('app_login')}}">Participer a un evenement </a>
+                        {% endif %}
+                        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                        <a  href="{{ path('add_Participation',{'id':event.id}) }}">Participer a un evenement </a>
+                        {% endif %}
+                        <article class="entry">
+                                <img src="{{ asset('uploads/evenements/'~event.image) }}" style=" margin-left: 55px ; margin-top: 20px " alt=""/>
+                            </div>
+
+                            <h2 class="entry-title">
+                                <a href="blog-single.html">{{ event.nom }}</a>
+                            </h2>
+
+                            <div class="entry-meta">
+                                <ul>
+                                    <li class="d-flex align-items-center"><i class="bi bi-telephone"></i>{{ event.date |date('d-m-Y')}}</li>
+                                    <li class="d-flex align-items-center"><i class="bi bi-mailbox2"></i>{{ event.datefin  |date('d-m-Y')}}</li>
+                                    <li class="d-flex align-items-center"><i class="bi bi-map"></i>{{ event.lieu }}</li>
+                                    <li class="d-flex align-items-center"><i class="bi bi-map"></i>{{ event.nbrPersonnes }}</li>
+
+                                </ul>
+                            </div>
+
+                            <div class="entry-content" >
+
+                                <p>
+                                    {{ event.description }}
+                                </p>
+
+
+                            </div>
+
+                        </article>  <!-- End blog entry -->
+                    {% endfor %}
+
+
+                    <div class="blog-pagination">
+                        <ul class="justify-content-center">
+
+                            <li><a href="#">{{ knp_pagination_render(tabEvent) }}</a></li>
+                            <!--  <li><a href="#">{{ knp_pagination_render(tabEvent) }}</a></li> -->
+
+
+                        </ul>
+                    </div>
+
+
+
+
+
+
+
+                </div><!-- End blog entries list -->
+
+                <div class="col-lg-4">
+
+                    <div class="sidebar">
+
+                        <h3 class="sidebar-title">Search</h3>
+                        <div class="sidebar-item search-form">
+                            <form action="{{ path("filter") }}" method="get">
+                                <input value="" id="nom" name="filter"  class="form-control " placeholder="Nom evenement" style="width: 300px">
+                                <button type="submit"><i class="bi bi-search"></i></button>
+                            </form>
+                        </div><!-- End sidebar search formn-->
+
+
+                    </div><!-- End sidebar -->
+
+                </div><!-- End blog sidebar -->
+
+            </div>
+
+        </div>
+    </section><!-- End Blog Section -->
+{% endblock %}

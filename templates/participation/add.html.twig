@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <div align="center",style="margin-top: 100px" class="card-body"> <h3>Veuillez remplir ce formulaire</h3> </div>
+    <div class="page-container">
+        <div class="main-content">
+            <div class="section__content section__content--p30">
+                <div class="container-fluid">
+                    <div align="center" class="card-group">
+
+                        <strong>Ajouter</strong> Une participation
+                    </div>
+
+
+                    {{ form_start(form,{'attr': {'novalidate': 'novalidate'}} ) }}
+                    {{ form_errors(form.nom) }}
+                    {{ form_errors(form.prenom) }}</br>
+                    {{ form_errors(form.adresse) }}</br>
+                    {{ form_errors(form.email) }}</br>
+                    {{ form_errors(form.numero) }}</br>
+                    {{ form_errors(form.nbrPersonnes) }}</br>
+
+
+                    {%  set s =tabEvent.nbrPersonnes %}
+
+                    <div> <p> Le nombre de places disponibles : {{ s }} </p> </div>
+                    {{ form_widget(form) }}
+                    </br>
+                    <button type="submit" class="btn btn-success">Participer</button>
+
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

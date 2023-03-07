@@ -1,0 +1,62 @@
+{% extends 'back.html.twig' %}
+{% block body %}
+
+<div class="page-container">
+    <div class="main-content">
+        <div class="section__content section__content--p10">
+            <div class="container-fluid">
+                <div align="center" class="card-group">
+                    <div align="center",style="margin-top: 100px" ><h3>Liste des participations</h3></div>
+
+                    <div class="table-responsive table-data">
+                        <table class="table">
+                    <table class="table table-borderless table-striped table-earning">
+
+        <thead>
+        <tr>
+            <th>Nom </th>
+            <th>Prenom </th>
+            <th>Adresse </th>
+            <th>Numero</th>
+            <th>Email</th>
+            <th>Evenement_id</th>
+
+        </tr>
+        </thead>
+        <tbody>
+
+    {% for participation in tabPartic %}
+        <tr>
+            <td>Nom: {{ participation.nom }}</td>
+            <td>Prenom: {{ participation.prenom }}</td>
+            <td>Adresse: {{ participation.adresse }}</td>
+            <td>Numero :{{ participation.numero }}</td>
+            <td>Email: {{ participation.email }}</td>
+            <td>Evenement_id: {{ participation.evenement.id }}</td>
+            <td><a href="{{ path('remove_Partic', {'id': participation.id}) }}" class="btn btn-dark">Delete</a></td>
+            <td><a href="{{ path('update_Partic', {'id': participation.id}) }}"  class="btn btn-dark">Modifier</a></td>
+            <td><a href="{{ path('showEvenement', {'id': participation.id}) }}"  class="btn btn-dark">details</a></td>
+
+
+        </tr>
+
+
+
+    {% endfor %}
+        </tbody>
+
+
+            </table>
+           </table>
+                    </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+    </div>
+
+</div>
+
+{% endblock %}

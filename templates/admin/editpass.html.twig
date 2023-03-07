@@ -1,0 +1,27 @@
+{% extends 'back.html.twig' %}
+
+
+{% block body %}
+    {% for message in app.flashes('error') %}
+    <div class="col-xs4">
+        <div class="p-3 my-2 rounded-2 error">{{ message }}</div>
+    </div>
+    {% endfor %}
+<div align="center" style="margin-top: 300px" class="container">
+    <p>Modification du mot de passe de  {{ app.user.name }} {{ app.user.firstname }}</p>
+    <div>
+        <form method="post">
+            <div class="form-field">
+                <label for="pass">Mot de passe</label>
+                <input type="password" id="pass" name="pass" class="form-control">
+            </div>
+
+            <div class="form-field">
+                <label for="pass2">Confirmer mot de passe</label>
+                <input type="password" id="pass2" name="pass2" class="form-control">
+            </div>
+            <button class="btn blue">Valider</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

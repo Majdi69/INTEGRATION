@@ -1,0 +1,23 @@
+{% extends 'back.html.twig' %}
+{% block title %}Evenement!{% endblock %}
+{% block body %}
+    <table> <div align="center",style="margin-top: 100px" class="card-body">
+    {{ form_start(form,{'attr': {'novalidate': 'novalidate'}} ) }}
+    <div align="center" style="margin-top:100px"><h2>Modifier un evenement</h2></div>
+    {{ form_errors(form.nom) }}</br>
+    {{ form_errors(form.lieu) }}</br>
+    {{ form_errors(form.date) }}</br>
+    {{ form_errors(form.Description) }}</br>
+    {{ form_errors(form.datefin) }}</br>
+    {{ form_errors(form.nbrPersonnes) }}</br>
+
+    {{ form_widget(form) }}
+    </br>
+
+
+    <button type="submit" class="btn btn-success">modifier</button>
+
+    {{ form_end(form) }}
+        </div>
+    </table>
+{% endblock %}

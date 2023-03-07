@@ -1,0 +1,18 @@
+
+{% extends 'back.html.twig' %}
+{% block body %}
+{% for participation in tabPartic %}
+    <tr>
+        <td>Nom: {{ participation.nom }}</td>
+        <td>Prenom: {{ participation.prenom }}</td>
+        <td>Adresse: {{ participation.adresse }}</td>
+        <td>Numero :{{ participation.numero }}</td>
+        <td>Email: {{ participation.email }}</td>
+        <td>Evenement_nom: {{ participation.evenement.nom }}</td>
+
+    </tr>
+
+
+
+{% endfor %}
+{% endblock %}

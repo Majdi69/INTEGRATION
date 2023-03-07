@@ -1,0 +1,31 @@
+{% extends 'back.html.twig' %}
+{% block body %}
+<div align="center" style="margin-top: 300px" class="card-footer">
+    <h1>List of Users</h1>
+
+    <table>
+        <thead>
+        <tr>
+            <th>firstname &nbsp&nbsp&nbsp&nbsp</th>
+            <th>name &nbsp&nbsp&nbsp&nbsp</th>
+            <th>Email</th>
+            <th>Roles &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for user in users %}
+            <tr>
+                <td>{{ user.firstname  }}</td>
+                <td>{{ user.name }} &nbsp&nbsp&nbsp&nbsp</td>
+                <td>{{ user.email }} &nbsp&nbsp&nbsp</td>
+                <td>{{ user.roles|join(', ') }} &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</td>
+                <td>
+                    <a href="{{ path('removeusers', {'id': user.id}) }}">Remove</a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

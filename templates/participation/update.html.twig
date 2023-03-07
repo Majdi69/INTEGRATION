@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <div align="center",style="margin-top: 100px" class="card-body"> <h3>Veuillez remplir ce formulaire</h3> </div>
+
+    <div align="center",style="margin-top: 100px" class="card-body">   {{ form(FormPartic) }}     <a href="{{ path('update_Partic',{id: participations.id}) }}" type="submit" class="btn btn-dark">modifier</a>
+    </div>
+
+
+{% endblock %}

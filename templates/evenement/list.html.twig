@@ -1,0 +1,62 @@
+{% extends 'back.html.twig' %}
+{% block body %}
+    <div class="page-container">
+        <div class="main-content">
+            <div class="section__content section__content--p10">
+                <div class="container-fluid">
+                    <div align="center" class="card-group">
+                        <div align="center",style="margin-top: 100px" ><h3>Liste des evenements</h3></div>
+
+                        <div class="table-responsive table-data">
+                            <table class="table">
+                                <table class="table table-borderless table-striped table-earning">
+
+                                    <thead>
+    <tr>
+        <th>Nom &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</th>
+        <th>Lieu &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</th>
+        <th>Date_debut &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</th>
+        <th>Date_fin &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</th>
+        <th>Description &nbsp&nbsp&nbsp&nbsp</th>
+        <th>NbrPersonnes &nbsp&nbsp&nbsp&nbsp</th>
+        <th>Image &nbsp&nbsp&nbsp&nbsp</th>
+        <th>Action &nbsp&nbsp&nbsp&nbsp</th>
+    </tr>
+    </thead>
+
+    {% for event in tabEvent %}
+
+            <td>{{ event.nom }}&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</td>
+            <td>{{ event.lieu }}&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</td>
+            <td>{{ event.date|date('d-m-Y') }}&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</td>
+            <td>{{ event.datefin|date('d-m-Y') }}&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</td>
+             <td>{{ event.description }}&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</td>
+             <td>{{ event.nbrPersonnes }}&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</td>
+           <td><img src="{{ asset('uploads/evenements/'~event.image) }}" style="margin-right: 5px ;margin-top :5px" alt="" width="100" height="100"/></td>
+            <td><a href="{{ path('update_Event', {'id': event.id}) }}"  class="btn btn-dark">Modifier</a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</td>
+            <td><a href="{{ path('remove_Event', {'id': event.id}) }}" class="btn btn-dark">Supprimer</a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</td>
+            <td><a href="{{ path('showEvenement', {'id': event.id}) }}"  class="btn btn-dark">details</a></td>
+
+        </tr>
+
+
+
+
+
+    {% endfor %}
+                                    </tbody>
+
+
+                                </table>
+                            </table>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    </div>
+{% endblock %}
