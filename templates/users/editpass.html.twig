@@ -57,26 +57,28 @@
             </header><!-- End Header -->
         {% endblock %}
 {% block body %}
-<section class="card-body">
-    {% for message in app.flashes('error') %}
-        <div class="col-xs4">
-            <div class="p-3 my-2 rounded-2 error">{{ message }}</div>
-        </div>
-    {% endfor %}
-    <p>Modification du mot de passe de  {{ app.user.name }} {{ app.user.firstname }}</p>
-    <div class="Login card-group">
-        <form method="post">
-            <div class="inputBox">
-                <label for="pass">Mot de passe</label>
-                <input type="password" id="pass" name="pass" class="form-control">
+<div style="margin-top: 200px">
+    <section class="card-body">
+        {% for message in app.flashes('error') %}
+            <div class="col-xs4">
+                <div class="p-3 my-2 rounded-2 error">{{ message }}</div>
             </div>
+        {% endfor %}
+        <p>Modification du mot de passe de  {{ app.user.name }} {{ app.user.firstname }}</p>
+        <div class="Login card-group">
+            <form method="post">
+                <div class="inputBox">
+                    <label for="pass">Mot de passe</label>
+                    <input type="password" id="pass" name="pass" class="form-control">
+                </div>
 
-            <div class="inputBox">
-                <label for="pass2">Confirmer mot de passe</label>
-                <input type="password" id="pass2" name="pass2" class="form-control">
-            </div>
-            <button class="btn btn-dark">Valider</button>
-        </form>
-    </div>
-</section>
+                <div class="inputBox">
+                    <label for="pass2">Confirmer mot de passe</label>
+                    <input type="password" id="pass2" name="pass2" class="form-control">
+                </div>
+                <button class="btn btn-dark">Valider</button>
+            </form>
+        </div>
+    </section>
+</div>
 {% endblock %}

@@ -1,71 +1,13 @@
 {% extends 'base.html.twig' %}
 
-        {% block Header %}
-            <!-- ======= Header ======= -->
-            <header id="header" class="fixed-top">
-                <div class="container d-flex align-items-center">
-
-                    <h1 class="logo me-auto"><a href="index.html"><span>Com</span>pany</a></h1>
-                    <!-- Uncomment below if you prefer to use an image logo -->
-                    <!-- <a href="index.html" class="logo me-auto me-lg-0"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
-
-                    <nav id="navbar" class="navbar order-last order-lg-0">
-                        <ul>
-                            <li><a href="index.html" class="active">Home</a></li>
-
-                            <li class="dropdown"><a href="#"><span>About</span> <i class="bi bi-chevron-down"></i></a>
-                                <ul>
-                                    <li><a href="about.html">About Us</a></li>
-                                    <li><a href="team.html">Team</a></li>
-                                    <li><a href="testimonials.html">Testimonials</a></li>
-                                    <li class="dropdown"><a href="#"><span>Deep Drop Down</span> <i class="bi bi-chevron-right"></i></a>
-                                        <ul>
-                                            <li><a href="#">Deep Drop Down 1</a></li>
-                                            <li><a href="#">Deep Drop Down 2</a></li>
-                                            <li><a href="#">Deep Drop Down 3</a></li>
-                                            <li><a href="#">Deep Drop Down 4</a></li>
-                                            <li><a href="#">Deep Drop Down 5</a></li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </li>
-
-                            <li><a href="services.html">Services</a></li>
-                            <li><a href="portfolio.html">Portfolio</a></li>
-                            <li><a href="pricing.html">Pricing</a></li>
-                            <li><a href="/listEventFront">Events</a></li>
-                            <li class="dropdown"><a href="/users"><span>Account</span> <i class="bi bi-chevron-down"></i></a>
-                                <ul>
-                                    <li><a href="/users">Profile</a></li>
-                                    {% if is_granted('ROLE_ADMIN') %}
-                                    <li><a href="/admin">Dashboard admin</a></li>
-                                    {% endif %}
-                                    <li><a href="/message">Messagerie</a></li>
-                                    <li><a href="/logout">Log out</a></li>
-                                </ul>
-                            </li>
-
-                        </ul>
-                        <i class="bi bi-list mobile-nav-toggle"></i>
-                    </nav><!-- .navbar -->
-
-                    <div class="header-social-links d-flex">
-                        <a href="#" class="twitter"><i class="bu bi-twitter"></i></a>
-                        <a href="#" class="facebook"><i class="bu bi-facebook"></i></a>
-                        <a href="#" class="instagram"><i class="bu bi-instagram"></i></a>
-                        <a href="#" class="linkedin"><i class="bu bi-linkedin"></i></a>
-                    </div>
-
-                </div>
-            </header><!-- End Header -->
-        {% endblock %}
 {% block body %}
+<div align="center" style="margin-top: 200px">
     {% for message in app.flashes('error') %}
         <div class="col-xs4">
             <div class="p-3 my-2 rounded-2 error">{{ message }}</div>
         </div>
     {% endfor %}
-<h1>Welcome to your profile</h1>
+    <h1>Welcome to your profile</h1>
     <p>profil de  {{ app.user.name }} {{ app.user.firstname }}</p>
     <div>
         <div>Nom: {{ app.user.name }}</div>
@@ -74,4 +16,5 @@
         <a href="{{ path('users_profil_modifier') }}" class="btn btn-primary">Modifier le profil</a>
         <a href="{{ path('users_pass_modifier') }}" class="btn btn-primary">Modifier le mot de passe</a>
     </div>
+</div>
 {% endblock %}

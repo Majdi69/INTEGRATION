@@ -1,0 +1,33 @@
+
+<table  border="1">
+    <thead >
+    <tr>
+        <th>id</th>
+
+        <th>Image</th>
+        <th>Etat</th>
+        <th>Catégorie</th>
+        <th >Titre</th>
+        <th>Description</th>
+
+
+
+    </tr>
+    </thead>
+    <tbody>
+    {% for blog in annonce %}
+        <tr>
+
+            <td>{{ blog.id }}</td>
+
+            <td> <img src="{{ asset('uploads/annonce/'~blog.image) }}" style=" margin-left: 55px ; margin-top: 20px " alt=""/></td>
+            <td>{{ blog.etat }}</td>
+            <td>{{ blog.categorie }}</td>
+            <td>{{ blog.titre }}</td>
+            <td>{{ blog.descreption }}</td>
+
+
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
