@@ -2,15 +2,27 @@
 
 namespace App\Controller;
 
+use App\Entity\Articles;
 use App\Entity\Reclamation;
+use App\Form\ArticlesType;
 use App\Form\ReclamationType;
+use App\Repository\ArticlesRepository;
+use App\Repository\ReclamationRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Knp\Component\Pager\PaginatorInterface;
 
+use App\Entity\Commentaire;
+use App\Form\CommentaireType;
+use App\Repository\AnnonceRepository;
+use App\Repository\CommentaireRepository;
+use Doctrine\Persistence\ManagerRegistry;
 
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Validator\Constraints\Date;
+
+
 
 class ReclamationController extends AbstractController
 {
@@ -45,10 +57,11 @@ class ReclamationController extends AbstractController
         $form=$this->createForm(ReclamationType::class,$foot);
         $form->HandleRequest($request);
         if($form->isSubmitted() && $form->isValid()){
+            $foot->setDate(new \DateTime());
             $em= $this->getDoctrine()->getManager();
             $em->persist($foot);
             $em->flush();
-            return $this->redirectToRoute('rec_liste');
+            return $this->redirectToRoute('art_aff');
         }
         return $this->render('reclamation/index.html.twig',['b'=>$form->createView()]);
 
@@ -64,7 +77,7 @@ class ReclamationController extends AbstractController
         $delivery = $em->getRepository(Reclamation::class)->find($id);
         $em->remove($delivery);
         $em->flush();
-        return $this->redirectToRoute('rec_liste');
+        return $this->redirectToRoute('rec_listeadm');
     }
 
     /**
@@ -117,5 +130,50 @@ class ReclamationController extends AbstractController
             'b'=>$article
         ]);
     }
+
+
+
+
+//    #[Route('/addcommForm/{idAnnonce}', name: 'addcommForm')]
+//    public function addcommForm(Request $request, ManagerRegistry $doctrine, $idAnnonce, ArticlesRepository $annonceRepository)
+//    {
+//        $comm = new Articles();
+//        $form = $this->createForm(ArticlesType::class, $comm);
+//        $form->handleRequest($request);
+//        if ($form->isSubmitted() && $form->isValid()) {
+//            $em = $doctrine->getManager();
+//            $annonce = $annonceRepository->find($idAnnonce);
+//            $comm->setArticles($annonce);
+//
+//            die();
+//            //$com->setUserid($userId);
+//            $em->persist($comm);
+//            $em->flush();
+//            return $this->redirectToRoute('comm_affichage', array("idAnnonce" => $idAnnonce));
+//        }
+//        return $this->render("reclamation/add.html.twig", ['f' => $form->createView(), "idAnnonce" => $idAnnonce]);
+//    }
+//
+//
+//
+//
+//
+//    #[Route('/commlist/{idAnnonce}', name: 'art_affichage')]
+//    public function list(ReclamationRepository $repository, $idAnnonce)
+//    {
+//        $com = $repository->findBy(array('idAnnonce' => $idAnnonce), array('id' => 'DESC'));
+//        return $this->render("reclamation/show.html.twig", array("f" => $com, "idAnnonce" => $idAnnonce));
+//    }
+
+
+
+
+
+
+
+
+
+
+
 
 }

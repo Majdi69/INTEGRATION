@@ -10,9 +10,11 @@
     <br>
     <br>
     <center>
+
+        <input class="col-10" type="text" name="AfficherClasse" onkeyup="myFunction()" placeholder="Recherche" id="myInput">
         <h1> Liste des Reclamations</h1>
 
-        <table class="table">
+        <table class="table" id="table">
             <thead>
             <tr>
                 <th scope="col">Id</th>
@@ -20,7 +22,6 @@
                 <th scope="col">description </th>
                 <th scope="col">date </th>
                 <th scope="col">mail </th>
-                <th scope="col">reponse </th>
                 <th scope="col"> </th>
                 <th scope="col"> </th>
 
@@ -35,7 +36,6 @@
                     <td>{{ a.description }}</td>
                     <td>{{ a.date|date('d-m-Y') }}</td>
                     <td>{{ a.mail }}</td>
-                    <td>{{ a.reponse }}</td>
 
                     <td>  <a class="btn btn-sm btn-success" href="{{ path('modifierrec', {id:a.id})}}">Modifier</a></td>
 
@@ -61,6 +61,30 @@
     </center>
 
 </div>
+    <script>
 
+
+        function myFunction() {
+            var input, filter, table, tr, td, i,j, txtValue;
+            input = document.getElementById("myInput");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("table");
+            tr = table.getElementsByTagName("tr");
+//   alert(td.length);
+            for (i = 0; i < tr.length; i++) {
+                td= tr[i].getElementsByTagName("td")[2];
+                if (td) {
+                    txtValue = td.textContent || td.innerText;
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        tr[i].style.display = "";
+                    } else {
+                        tr[i].style.display = "none";
+                    }
+                }
+            }
+        }
+
+
+    </script>
 {% endblock %}
 

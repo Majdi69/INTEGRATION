@@ -41,8 +41,7 @@ class Reclamation
      */
     private ?\DateTimeInterface $date = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $reponse = null;
+
 
     #[ORM\Column(length: 100)]
     /**
@@ -55,7 +54,7 @@ class Reclamation
 
     #[ORM\ManyToOne(inversedBy: 'reclamation')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Article $article = null;
+    private ?Articles $article = null;
 
     public function getId(): ?int
     {
@@ -98,17 +97,7 @@ class Reclamation
         return $this;
     }
 
-    public function getReponse(): ?string
-    {
-        return $this->reponse;
-    }
 
-    public function setReponse(?string $reponse): self
-    {
-        $this->reponse = $reponse;
-
-        return $this;
-    }
 
     public function getMail(): ?string
     {
@@ -122,12 +111,12 @@ class Reclamation
         return $this;
     }
 
-    public function getArticle(): ?Article
+    public function getArticle(): ?Articles
     {
         return $this->article;
     }
 
-    public function setArticle(?Article $article): self
+    public function setArticle(?Articles $article): self
     {
         $this->article = $article;
 
