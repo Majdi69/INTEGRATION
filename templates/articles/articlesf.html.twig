@@ -60,6 +60,16 @@
                     </tr>
 
                 {%  endfor %}
+                <div class="col-lg-8 entries">
+                    <div class="blog-pagination">
+                        <ul class="justify-content-center">
+
+                            <li><a href="#">{{ knp_pagination_render(f) }}</a></li>
+                            <!--  <li><a href="#">{{ knp_pagination_render(f) }}</a></li> -->
+
+
+                        </ul>
+                    </div>
 
                 </tbody>
             </table>
@@ -69,12 +79,14 @@
     <script>
 
 
-        function myFunction() {
+        function myFunction()  //recherche
+        {
             var input, filter, table, tr, td, i,j, txtValue;
             input = document.getElementById("myInput");
             filter = input.value.toUpperCase();
             table = document.getElementById("table");
             tr = table.getElementsByTagName("tr");
+
 //   alert(td.length);
             for (i = 0; i < tr.length; i++) {
                 td= tr[i].getElementsByTagName("td")[1];
@@ -86,7 +98,27 @@
                         tr[i].style.display = "none";
                     }
                 }
+
+
             }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         }
 
 

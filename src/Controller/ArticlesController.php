@@ -30,6 +30,7 @@ use Knp\Component\Pager\PaginatorInterface;
 
 namespace App\Controller;
 
+use App\Entity\Article;
 use App\Entity\Articles;
 use App\Form\ArticlesType;
 use App\Repository\ArticlesRepository;
@@ -60,6 +61,13 @@ use Knp\Component\Pager\PaginatorInterface;
 
 class ArticlesController extends AbstractController
 {
+
+
+
+
+
+
+
     #[Route('/articles', name: 'app_articles')]
     public function index(): Response
     {
@@ -76,15 +84,17 @@ class ArticlesController extends AbstractController
         return $this->render("articles/articles.html.twig", array("f" => $annonce));
     }
     #[Route('/articlesaffback', name: 'art_aff_back')]
-    public function lists(ArticlesRepository $repository, Request $request)
+    public function lists(ArticlesRepository $repository, Request $request,PaginatorInterface $paginator)
     {
         $annonce = $repository->findAll();
+        $annonce = $paginator->paginate($annonce, $request->query->getInt('page', 1),2);
 
         return $this->render("articles/articlesf.html.twig", array("f" => $annonce));
     }
 
-    #[Route('/listp', name: 'listp')]
-    public function listdf(ArticlesRepository $repository)
+    #[Route('/listp', name: 'listp')] //pdf
+    public function listdf(ArticlesRepository $repository
+    )
     {
         $pdfOptions = new Options();
         $pdfOptions->set('defaultFront','Arial');
@@ -97,6 +107,8 @@ class ArticlesController extends AbstractController
 
 
 
+
+
         $html = $this->render("articles/listp.html.twig", array("f" => $annonce));
 
         $dompdf->loadHtml($html);
@@ -104,6 +116,8 @@ class ArticlesController extends AbstractController
         $dompdf->setPaper('A4','portrait');
 
         $dompdf->render();
+
+
 
         $dompdf->stream("mypdf.pdf",[
             "Attachment"=> true
@@ -151,6 +165,11 @@ class ArticlesController extends AbstractController
             $em->persist($annonce);
             $em->flush();
 
+            $this->addFlash(
+                'info',
+                'Added successfully!');
+
+
             return $this->redirectToRoute('art_aff_back');
         }
         return $this->render("articles/add.html.twig", ['f' => $form->createView()]);
@@ -163,6 +182,10 @@ class ArticlesController extends AbstractController
         $em = $doctrine->getManager();
         $em->remove($annonce);
         $em->flush();
+        $this->addFlash(
+            'info',
+            'Removed successfully!');
+
         return $this->redirectToRoute("art_aff_back");
     }
 
@@ -206,6 +229,11 @@ class ArticlesController extends AbstractController
 
 
             $em->flush();
+
+            $this->addFlash(
+                'info',
+                'Updated successfully!');
+
             return $this->redirectToRoute('art_aff_back');
         }
         return $this->render("articles/update.html.twig", ['f' => $form->createView()]);
