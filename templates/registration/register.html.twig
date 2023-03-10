@@ -3,41 +3,47 @@
 {% block title %}Register{% endblock %}
 
 {% block body %}
-    {% for flash_error in app.flashes('verify_email_error') %}
-        <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
-    {% endfor %}
-    <div align="center">
-        <h1>Register</h1>
-    </div>
-<section class="card-footer" >
-    <div align="center">
-    {{ form_start(registrationForm,{'attr': {'novalidate': 'novalidate'}} ) }}
-    {{form_label(registrationForm.name,"Nom") }}
-    {{ form_widget(registrationForm.name) }}
-    {{form_errors(registrationForm.name) }}
-    </div>
-    <div align="center">
-    {{form_label(registrationForm.firstname,"Prenom") }}
-    {{ form_widget(registrationForm.firstname) }}
-    {{form_errors(registrationForm.firstname) }}
-    </div>
-    <div align="center">
-    {{form_label(registrationForm.firstname,"Email") }}
-    {{ form_widget(registrationForm.email) }}
-    {{form_errors(registrationForm.email) }}
-    </div>
-    <div align="center">
-    {{form_label(registrationForm.plainPassword,"Password") }}
-    {{ form_widget(registrationForm.plainPassword, {
-        label: 'Password'
-    }) }}
-    {{form_errors(registrationForm.plainPassword) }}
-    {{ form_row(registrationForm.agreeTerms) }}
+    <div style="margin-top: 150px; padding: 10px;">
+        {% for flash_error in app.flashes('verify_email_error') %}
+            <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
+        {% endfor %}
+        <div align="center">
+            <h1>Register</h1>
+        </div>
+        <div style="padding: 10px; background-color: #f2f2f2;">
+            <form method="POST" action="" style="max-width: 300px; margin: 0 auto;">
+                <div style="display: flex; flex-direction: column; gap: 10px;">
+                    <div>
+                        {{form_label(registrationForm.name,"Nom") }}
+                        {{ form_widget(registrationForm.name, {'attr': {'class': 'form-control'}}) }}
+                        {{form_errors(registrationForm.name) }}
+                    </div>
+                    <div>
+                        {{form_label(registrationForm.firstname,"Prenom") }}
+                        {{ form_widget(registrationForm.firstname, {'attr': {'class': 'form-control'}}) }}
+                        {{form_errors(registrationForm.firstname) }}
+                    </div>
+                    <div>
+                        {{form_label(registrationForm.firstname,"Email") }}
+                        {{ form_widget(registrationForm.email, {'attr': {'class': 'form-control'}}) }}
+                        {{form_errors(registrationForm.email) }}
+                    </div>
+                    <div>
+                        {{form_label(registrationForm.plainPassword,"Password") }}
+                        {{ form_widget(registrationForm.plainPassword, {
+                            label: 'Password',
+                            'attr': {'class': 'form-control'}
+                        }) }}
+                        {{form_errors(registrationForm.plainPassword) }}
+                        {{ form_row(registrationForm.agreeTerms) }}
+                    </div>
+                    <div style="display: flex; justify-content: center;">
+                        <button type="submit" class="btn btn-dark" style="width: 200px; margin-top: 20px;">Register</button>
+                    </div>
+                </div>
+                {{ form_end(registrationForm) }}
+            </form>
+        </div>
     </div>
 
-    <div align="center">
-        <button type="submit" class="btn btn-dark">Register</button>
-    </div>
-    {{ form_end(registrationForm) }}
-</section>
 {% endblock %}

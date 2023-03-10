@@ -35,9 +35,9 @@ class CommentaireController extends AbstractController
             $annonce = $annonceRepository->find($idAnnonce);
             $comm->setAnnonce($annonce);
             $comm->setDate(new \DateTime('now'));
-            $userId=$request->get('user');
-            var_dump($userId);
-            die();
+           // $userId=$request->get('user');
+           // var_dump($userId);
+            //die();
             //$com->setUserid($userId);
             $em->persist($comm);
             $em->flush();

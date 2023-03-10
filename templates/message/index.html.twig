@@ -3,21 +3,22 @@
 {% block title %}Hello MessageController!{% endblock %}
 
 {% block body %}
-<div style="margin-top: 200px">
-    <section class="container">
-        <div>
-            <a href="{{ path('app_send') }}" class="btn btn-dark">Envoyé message</a>
-        </div>
-        <div class="row">
-            <div class="col">
-                <h1>Messagerie</h1>
-                <p> Reçus : {{ app.user.received|length }}</p>
-                <p> Envoyés : {{ app.user.sent|length }}</p>
+    <div style="margin-top: 150px; background-color: #F0F0F0; padding: 2px;">
+        <section class="container">
+            <div>
+                <a href="{{ path('app_send') }}" class="btn btn-dark">Envoyer un message</a>
             </div>
-        </div>
-        <a href="{{ path('app_message') }}" class="btn btn-primary">Acceuil</a>
-        <a href="{{ path('app_received') }}" class="btn btn-outline-primary">Boite de réception</a>
-        <a href="{{ path('app_sent') }}" class="btn btn-outline-primary">Eléments envoyés</a>
-    </section>
-</div>
+            <div class="row">
+                <div class="col">
+                    <h1 style="color: #333;">Messagerie</h1>
+                    <p style="color: #555;">Reçus : {{ app.user.received|length }}</p>
+                    <p style="color: #555;">Envoyés : {{ app.user.sent|length }}</p>
+                </div>
+            </div>
+            <a href="{{ path('app_message') }}" class="btn btn-primary">Accueil</a>
+            <a href="{{ path('app_received') }}" class="btn btn-outline-primary">Boîte de réception</a>
+            <a href="{{ path('app_sent') }}" class="btn btn-outline-primary">Éléments envoyés</a>
+        </section>
+    </div>
+
 {% endblock %}

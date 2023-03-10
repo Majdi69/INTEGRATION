@@ -6,6 +6,8 @@ use App\Entity\Annonce;
 use App\Form\AnnonceType;
 use phpDocumentor\Reflection\DocBlock\Serializer;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -22,7 +24,9 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Component\Notifier\Message\SmsMessage;
 use Symfony\Component\Notifier\TexterInterface;
+use Knp\Bundle\PaginatorBundle\Pagination\SlidingPagination ;
 use Knp\Component\Pager\PaginatorInterface;
+use Symfony\Component\Security\Core\Security;
 use App\Entity\PdfGeneratorService;
 class AnnonceController extends AbstractController
 {
@@ -35,7 +39,7 @@ class AnnonceController extends AbstractController
     }
 
     #[Route('/addannonceForm', name: 'addannonceForm')]
-    public function addForm(Request $request, ManagerRegistry $doctrine, SluggerInterface $slugger ,AnnonceRepository $repository)
+    public function addForm(Request $request, ManagerRegistry $doctrine, SluggerInterface $slugger ,AnnonceRepository $repository,Security $security)
     {
         $annonce = new Annonce();
         $form = $this->createForm(AnnonceType::class, $annonce);
@@ -69,14 +73,14 @@ class AnnonceController extends AbstractController
 
             $em = $doctrine->getManager();
             $etat = $request->get("etat");
-            //$annonce->setEtat($etat);
             $annonce->setEtat($etat);
             $cat = $request->get("categorie");
             $annonce->setCategorie($cat);
-            $userId=$request->get('user');
-            var_dump($userId);
-            die();
-            //$com->setUserid($userId);
+
+            $user = $security->getUser();
+            $annonce->setUser($user);
+
+
             $em->persist($annonce);
             $em->flush();
             $repository->sms();
@@ -87,51 +91,56 @@ class AnnonceController extends AbstractController
     }
 
     #[Route('/updateannonce/{id}', name: 'annonce_upd')]
-    public function updateForma($id, AnnonceRepository $repository, Request $request, ManagerRegistry $doctrine, SluggerInterface $slugger)
+    public function updateForma($id, AnnonceRepository $repository, Request $request, ManagerRegistry $doctrine, SluggerInterface $slugger,Annonce $annonce)
     {
-        $annonce = $repository->find($id);
-        $form = $this->createForm(AnnonceType::class, $annonce);
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
+if($annonce->getUser() ==$this->getUser()){
+    $annonce = $repository->find($id);
+    $form = $this->createForm(AnnonceType::class, $annonce);
+    $form->handleRequest($request);
+    if ($form->isSubmitted() && $form->isValid()) {
 
-            //image
-            /** @var UploadedFile $brochureFile */
-            $photo = $form->get('photo')->getData();
+        //image
+        /** @var UploadedFile $brochureFile */
+        $photo = $form->get('photo')->getData();
 
-            // this condition is needed because the 'brochure' field is not required
-            // so the PDF file must be processed only when a file is uploaded
-            if ($photo) {
-                $originalFilename = pathinfo($photo->getClientOriginalName(), PATHINFO_FILENAME);
-                // this is needed to safely include the file name as part of the URL
-                $safeFilename = $slugger->slug($originalFilename);
-                $newFilename = $safeFilename . '-' . uniqid() . '.' . $photo->guessExtension();
+        // this condition is needed because the 'brochure' field is not required
+        // so the PDF file must be processed only when a file is uploaded
+        if ($photo) {
+            $originalFilename = pathinfo($photo->getClientOriginalName(), PATHINFO_FILENAME);
+            // this is needed to safely include the file name as part of the URL
+            $safeFilename = $slugger->slug($originalFilename);
+            $newFilename = $safeFilename . '-' . uniqid() . '.' . $photo->guessExtension();
 
-                // Move the file to the directory where photos are stored
-                try {
-                    $photo->move(
-                        $this->getParameter('annonce_directory'),
-                        $newFilename
-                    );
-                } catch (FileException $e) {
-                    // ... handle exception if something happens during file upload
-                }
-                // updates the 'brochureFilename' property to store the PDF file name
-                // instead of its contents
-                $annonce->setImage($newFilename);
+            // Move the file to the directory where photos are stored
+            try {
+                $photo->move(
+                    $this->getParameter('annonce_directory'),
+                    $newFilename
+                );
+            } catch (FileException $e) {
+                // ... handle exception if something happens during file upload
             }
-
-
-            $em  =$doctrine->getManager();
-            $etat  = $request->get("etat");
-            $annonce->setEtat($etat);
-            $cat  =$request->get("categorie");
-            $annonce->setCategorie($cat);
-
-            $em->flush();
-
-            return $this->redirectToRoute('annonce_aff');
+            // updates the 'brochureFilename' property to store the PDF file name
+            // instead of its contents
+            $annonce->setImage($newFilename);
         }
-        return $this->render("annonce/updatea.html.twig", ['f' => $form->createView()]);
+
+
+        $em  =$doctrine->getManager();
+        $etat  = $request->get("etat");
+        $annonce->setEtat($etat);
+        $cat  =$request->get("categorie");
+        $annonce->setCategorie($cat);
+
+        $em->flush();
+
+        return $this->redirectToRoute('annonce_aff');
+    }
+    return $this->render("annonce/updatea.html.twig", ['f' => $form->createView()]);
+}else
+{
+    $this->addFlash('error','you are not allowed to edit or delete this announcement');
+}
     }
 
     #[Route('/removeannonce/{id}', name: 'annonce_rem')]
@@ -150,7 +159,7 @@ class AnnonceController extends AbstractController
         $annonce = $repository->findAll();
 
         $annonce = $paginator->paginate(
-            $annonce,
+           $annonce,
             $request->query->getInt('page', 1),3);
 
         return $this->render("annonce/annonce.html.twig", array("f" => $annonce));

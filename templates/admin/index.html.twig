@@ -4,31 +4,94 @@
 
 
 {% block body %}
+
+
+   <style>
+       .error {
+           background-color: #8b0000;
+           color: #fff;
+           padding: 10px;
+           margin-bottom: 20px;
+       }
+
+       .blue {
+           background-color: #007bff;
+           color: #fff;
+           margin-right: 10px;
+           padding: 10px;
+           border-radius: 5px;
+           text-decoration: none;
+       }
+
+       .blue:hover {
+           background-color: #0062cc;
+           color: #fff;
+       }
+
+       .container {
+           max-width: 960px;
+           margin: 0 auto;
+           padding: 0 15px;
+           display: flex;
+           flex-wrap: wrap;
+           justify-content: center;
+       }
+
+       .profile-section {
+           background-color: grey;
+           color: #fff;
+           padding: 50px;
+           margin-top: 100px;
+           text-align: center;
+       }
+
+       .profile-section h1 {
+           margin-bottom: 20px;
+       }
+
+       .profile-section p {
+           margin-bottom: 40px;
+       }
+
+       .profile-links {
+           display: flex;
+           flex-wrap: wrap;
+           justify-content: center;
+           margin-bottom: 40px;
+       }
+
+       .profile-links a {
+           margin-right: 20px;
+       }
+
+   </style>
+
     {% for message in app.flashes('error') %}
-        <div class="col-xs4">
-            <div class="p-3 my-2 rounded-2 error">{{ message }}</div>
-        </div>
+        <div class="error">{{ message }}</div>
     {% endfor %}
-    <div style="margin-top: 300px" align="center">
-        <h1>Welcome to your profile</h1>
-        <p align="center">profil de  {{ app.user.name }} {{ app.user.firstname }}</p>
-        <div>
-            <div>Nom: {{ app.user.name }}</div>
-            <div>Prenom: {{ app.user.firstname }}</div>
-            <div>Email: {{ app.user.email }}</div>
-            <a  href="{{ path('admin_profil_modifier') }}" class="btn blue">Modifier le profil</a>
-            <a href="{{ path('admin_pass_modifier') }}" class="btn blue">Modifier le mot de passe</a>
-            <a href="{{ path('listusers') }}" class="btn blue">Show all Users</a>
-            <a href="{{ path('app_message') }}" class="btn blue">Messagerie</a>
-        </div>
-        <div>
-            <a href="{{ path('add_event') }}" class="btn blue">Ajouter Evenement</a>
-            <a href="{{ path('stats') }}" class="btn blue">Statistiques</a>
-            <a href="{{ path('filter') }}" class="btn blue">Filter</a>
-            <a href="{{ path('listevent') }}" class="btn blue">Liste des Evenements</a>
-        </div>
-        <div>
-            <a href="{{ path('annonce_aff2') }}" class="btn blue">Annonces</a>
-        </div>
+
+    <div class="container">
+        <section class="profile-section">
+            <h1>Welcome to your profile</h1>
+            <p>profil de {{ app.user.name }} {{ app.user.firstname }}</p>
+            <div class="profile-details">
+                <div>Nom: {{ app.user.name }}</div>
+                <div>Prenom: {{ app.user.firstname }}</div>
+                <div>Email: {{ app.user.email }}</div>
+            </div>
+            <div class="profile-links">
+                <a href="{{ path('admin_profil_modifier') }}" class="blue">Modifier le profil</a>
+                <a href="{{ path('admin_pass_modifier') }}" class="blue">Modifier le mot de passe</a>
+                <a href="{{ path('listusers') }}" class="blue">Show all Users</a>
+                <a href="{{ path('app_message') }}" class="blue">Messagerie</a>
+                <a href="{{ path('add_event') }}" class="blue">Ajouter Evenement</a>
+                <a href="{{ path('stats') }}" class="blue">Statistiques</a>
+                <a href="{{ path('filter') }}" class="blue">Filter</a>
+                <a href="{{ path('listevent') }}" class="blue">Liste des Evenements</a>
+                <a href="{{ path('annonce_aff2') }}" class="blue">Annonces</a>
+            </div>
+        </section>
     </div>
+
+
 {% endblock %}

@@ -45,7 +45,7 @@ class AnnonceRepository extends ServiceEntityRepository
     public function sms(){
         // Your Account SID and Auth Token from twilio.com/console
         $sid = 'ACd7316a9c80d20818ebe259901e2e7a04';
-        $auth_token = '377388b50ccdf94c7f0b357c35746963';
+        $auth_token = '2ecc7e73ea9f8c7f98a80d92ed0d73b8';
 
         // In production, these should be environment variables. E.g.:
         // $auth_token = $_ENV["TWILIO_AUTH_TOKEN"]

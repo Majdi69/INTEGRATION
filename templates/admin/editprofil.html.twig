@@ -2,8 +2,65 @@
 
 
 {% block body %}
-    <p>Modification du profil de  {{ app.user.name }} {{ app.user.firstname }}</p>
-    <div align="center" style="margin-top: 300px" class="card-footer">
-{{ form(form) }}
+    <style>
+        .profile-form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 50px;
+        }
+
+        .profile-form p {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 30px;
+        }
+
+        .form-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            border-radius: 5px;
+            background-color: #f7f7f7;
+            box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        .form-container input[type="text"],
+        .form-container input[type="email"],
+        .form-container input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: none;
+            background-color: #fff;
+            box-shadow: inset 0px 1px 3px rgba(0, 0, 0, 0.2);
+        }
+
+        .form-container input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            margin: 20px 0 10px;
+            border-radius: 5px;
+            border: none;
+            background-color: #4caf50;
+            color: #fff;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .form-container input[type="submit"]:hover {
+            background-color: #388e3c;
+        }
+
+    </style>
+    <div class="profile-form" style="margin-top: 200px">
+        <p>Modification du profil de {{ app.user.name }} {{ app.user.firstname }}</p>
+        <div class="form-container">
+            {{ form(form) }}
+        </div>
     </div>
 {% endblock %}
