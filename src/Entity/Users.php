@@ -62,6 +62,9 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Evenement::class)]
     private Collection $evenements;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $image ;
+
     public function getResetToken(): ?string
     {
         return $this->resetToken;
@@ -355,5 +358,22 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
         }
 
         return $this;
+    }
+
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    public function setImage(string $image): self
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    public function __toString(): string
+    {
+        return $this->getImage();
     }
 }

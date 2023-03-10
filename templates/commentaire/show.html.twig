@@ -6,6 +6,7 @@
 
             <div class="d-flex justify-content-between align-items-center">
                 <h2>Annonces</h2>
+                <h1>Welcome {{ app.user.name  }} {{ app.user.firstname  }} </h1>
                 <ol>
                     <li><a href="index.html">Home</a></li>
                     <li><a  href="{{ path('annonce_aff') }}">Annonces</a></li>
@@ -57,8 +58,10 @@
                                 </div>
                             </div>
                             {% if  is_granted('IS_AUTHENTICATED_FULLY') %}
+                            {% if app.user.id == blog.user.id %}
                             <a  href="{{ path('comm_upd',{'id':blog.id}) }}">Modifier</a>
                             <a  href="{{ path('comm_remove',{'id':blog.id}) }}">Supprimer</a>
+                            {% endif %}
                             {% endif %}
                         </article>  <!-- End blog entry -->
                     {% endfor %}

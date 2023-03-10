@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Knp\Component\Pager\PaginatorInterface;
 
 class AdminController extends AbstractController
 {
@@ -69,9 +70,10 @@ class AdminController extends AbstractController
     }
 
     #[Route('/admin/listusers', name: 'listusers')]
-    public function listUsers(UsersRepository $repository)
+    public function listUsers(UsersRepository $repository,PaginatorInterface $paginator ,Request  $request)
     {
         $users = $this->getDoctrine()->getRepository(Users::class)->findAll();
+        $users = $paginator->paginate($users, $request->query->getInt('page', 1),2);
 
         return $this->render('admin/list.html.twig', [
             'users' => $users,]);

@@ -79,8 +79,10 @@
                         <div class="read-more">
                             <a  href="{{ path('annonce_single',{'id':blog.id}) }}">Read More</a>
                             {% if  is_granted('IS_AUTHENTICATED_FULLY') %}
+                                {% if app.user.id == blog.user.id %}
                                     <a  href="{{ path('annonce_upd',{'id':blog.id}) }}" >Modifier</a>
                                     <a  href="{{ path('annonce_rem',{'id':blog.id}) }}">Supprimer</a>
+                                {% endif %}
                             {% endif %}
                         </div>
 

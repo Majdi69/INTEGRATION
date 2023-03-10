@@ -40,6 +40,46 @@ class AnnonceRepository extends ServiceEntityRepository
         }
     }
 
+    //tri +recherche
+    public function SortBytitreAnnonce(){
+        return $this->createQueryBuilder('e')
+            ->orderBy('e.titre','ASC')
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
+    public function SortBydescriptionAnnonce()
+    {
+        return $this->createQueryBuilder('e')
+            ->orderBy('e.descreption','ASC')
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
+
+
+
+
+
+    public function findBydescriptionAnnonce( $descreption)
+    {
+        return $this-> createQueryBuilder('e')
+            ->andWhere('e.descreption LIKE :descreption')
+            ->setParameter('descreption','%' .$descreption. '%')
+            ->getQuery()
+            ->execute();
+    }
+    public function findBytitreAnnonce( $titre)
+    {
+        return $this-> createQueryBuilder('e')
+            ->andWhere('e.titre LIKE :titre')
+            ->setParameter('titre','%' .$titre. '%')
+            ->getQuery()
+            ->execute();
+    }
+
     //SMS
 
     public function sms(){

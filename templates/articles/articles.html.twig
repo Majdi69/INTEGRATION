@@ -1,0 +1,106 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <!-- ======= Breadcrumbs ======= -->
+    <section id="breadcrumbs" class="breadcrumbs">
+        <div class="container">
+
+            <div class="d-flex justify-content-between align-items-center">
+                <h2>Articles</h2>
+                <a class="btn btn-sm btn-success" href="{{ path('listp') }}">pdf</a>
+
+                <div id="google_translate_element"></div>
+
+                <script type="text/javascript">
+                    function googleTranslateElementInit() {
+                        new google.translate.TranslateElement({pageLanguage: 'en'}, 'google_translate_element');
+                    }
+                </script>
+
+                <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+            </div>
+
+        </div>
+    </section><!-- End Breadcrumbs -->
+
+    <section id="blog" class="blog">
+        <div class="container" data-aos="fade-up">
+
+            <div class="row">
+
+
+                    {% for blog in f %}
+                        <article class="entry">
+
+                            <div class="entry-img">
+                                <img src="{{ asset('uploads/annonce/'~blog.image) }}" style=" margin-left: 55px ; margin-top: 20px " alt=""/>
+                            </div>
+
+                            <h2 class="entry-title">
+                                <a href="blog-single.html">{{ blog.titre }}</a>
+                            </h2>
+
+                            <div class="entry-meta">
+                                <ul>
+                                    <li class="d-flex align-items-center"><i class="bi bi-person"></i>{{ blog.nom }}</li>
+                                    <li class="d-flex align-items-center">{{ blog.descreption }}</li>
+
+
+                                </ul>
+
+                            </div>
+
+                            <div class="entry-content" >
+
+
+{#
+                                <div class="read-more">
+                                    <a  href="{{ path('annonce_single',{'id':blog.id}) }}">Read More</a>
+                                    <a  href="{{ path('annonce_upd',{'id':blog.id}) }}">Modifier</a>
+                                    <a  href="{{ path('annonce_rem',{'id':blog.id}) }}">Supprimer</a>
+
+                                </div>#}
+                                <a class="btn btn-sm btn-success" href="{{ path('addrecl',{'id':blog.id}) }}">Reclammer</a>
+
+                            </div>
+
+                        </article>  <!-- End blog entry -->
+                    {% endfor %}
+
+
+
+
+
+
+
+
+
+                </div><!-- End blog entries list -->
+
+                <div class="col-lg-4">
+
+                    <div class="sidebar">
+
+                        <h3 class="sidebar-title">Search</h3>
+                        <div class="sidebar-item search-form">
+                            <form action="">
+                                <input type="text">
+                                <button type="submit"><i class="bi bi-search"></i></button>
+                            </form>
+                        </div><!-- End sidebar search formn-->
+
+
+
+
+
+
+
+                    </div><!-- End sidebar -->
+
+                </div><!-- End blog sidebar -->
+
+            </div>
+
+        </div>
+    </section><!-- End Blog Section -->
+{% endblock %}

@@ -1,0 +1,44 @@
+
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">nom </th>
+                    <th scope="col">description </th>
+
+
+
+
+
+
+
+
+                    <th scope="col">titre </th>
+                    <th scope="col"> </th>
+                    <th scope="col"> </th>
+
+                </tr>
+                </thead>
+                <tbody>
+                {%  for a in  f %}
+
+                    <tr>
+                        <td>{{a.id}}</td>
+                        <td>{{ a.nom }}</td>
+                        <td>{{ a.descreption }}</td>
+
+                        <td>{{ a.titre }}</td>
+
+
+
+
+
+
+                    </tr>
+
+                {%  endfor %}
+
+
+                </tbody>
+            </table>
+

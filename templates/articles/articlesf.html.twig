@@ -1,0 +1,126 @@
+
+{% extends 'back.html.twig' %}
+{% block body %}
+
+    <div class="container">
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <center>
+
+    <div style="display: flex;align-items:center;justify-content: center;">
+
+    <div class="row">
+    <div class="col-12">
+    <div class="card my-4">
+        <input class="col-10" type="text" name="AfficherClasse" onkeyup="myFunction()" placeholder="Recherche" id="myInput">
+
+            <table class="table" id="table">
+                <thead>
+                <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">nom </th>
+                    <th scope="col">description </th>
+                    <th scope="col">image </th>
+
+
+
+
+
+
+
+
+                    <th scope="col">titre </th>
+                    <th scope="col"> </th>
+                    <th scope="col"> </th>
+
+                </tr>
+                </thead>
+                <tbody>
+                {%  for a in  f %}
+
+                    <tr>
+                        <td>{{a.id}}</td>
+                        <td>{{ a.nom }}</td>
+                        <td>{{ a.descreption }}</td>
+                        <td> <img src="{{ asset('uploads/annonce/'~a.image) }}" style=" margin-left: 55px ; margin-top: 20px " alt=""/>
+                        </td>
+                        <td>{{ a.titre }}</td>
+
+                        <td>  <a  href="{{ path('art_rem',{'id':a.id}) }}">Supprimer</a></td>
+                        <td><a  href="{{ path('art_upd',{'id':a.id}) }}">Modifier</a></td>
+
+
+
+
+
+                    </tr>
+
+                {%  endfor %}
+                <div class="col-lg-8 entries">
+                    <div class="blog-pagination">
+                        <ul class="justify-content-center">
+
+                            <li><a href="#">{{ knp_pagination_render(f) }}</a></li>
+                            <!--  <li><a href="#">{{ knp_pagination_render(f) }}</a></li> -->
+
+
+                        </ul>
+                    </div>
+
+                </tbody>
+            </table>
+
+
+        </div>
+    <script>
+
+
+        function myFunction()  //recherche
+        {
+            var input, filter, table, tr, td, i,j, txtValue;
+            input = document.getElementById("myInput");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("table");
+            tr = table.getElementsByTagName("tr");
+
+//   alert(td.length);
+            for (i = 0; i < tr.length; i++) {
+                td= tr[i].getElementsByTagName("td")[1];
+                if (td) {
+                    txtValue = td.textContent || td.innerText;
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        tr[i].style.display = "";
+                    } else {
+                        tr[i].style.display = "none";
+                    }
+                }
+
+
+            }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        }
+
+
+    </script>
+{% endblock %}

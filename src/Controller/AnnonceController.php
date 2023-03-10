@@ -28,6 +28,7 @@ use Knp\Bundle\PaginatorBundle\Pagination\SlidingPagination ;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\Security\Core\Security;
 use App\Entity\PdfGeneratorService;
+use CMEN\GoogleChartsBundle\GoogleCharts\Charts\PieChart; //stat
 class AnnonceController extends AbstractController
 {
     #[Route('/annonce', name: 'app_annonce')] //, name: 'app_annonce'
@@ -197,11 +198,105 @@ if($annonce->getUser() ==$this->getUser()){
 
 ////Back
     #[Route('/annoncelist2', name: 'annonce_aff2')]
-    public function list2(AnnonceRepository $repository)
+    public function list2(AnnonceRepository $repository ,Request $request)
     {
         $annonce = $repository->findAll();
+
+        //tri+recherche
+        $back = null;
+
+        if($request->isMethod("POST")){
+            if ( $request->request->get('optionsRadios')){
+                $SortKey = $request->request->get('optionsRadios');
+                switch ($SortKey){
+                    case 'titre':
+                        $annonce = $repository->SortBytitreAnnonce();
+                        break;
+
+                    case 'descreption':
+                        $annonce = $repository->SortBydescriptionAnnonce();
+                        break;
+
+                }
+            }
+            else
+            {
+                $type = $request->request->get('optionsearch');
+                $value = $request->request->get('Search');
+                switch ($type){
+
+
+                    case 'descreption':
+                        $annonce = $repository->findBydescriptionAnnonce($value);
+                        break;
+
+                    case 'titre':
+                        $annonce = $repository->findBytitreAnnonce($value);
+                        break;
+
+                }
+            }
+
+            if ( $annonce){
+                $back = "success";
+            }else{
+                $back = "failure";
+            }
+        }
+
+        /// fin tri+recherch
+
         return $this->render("aadmin/admin.html.twig", array("f" => $annonce));
     }
+
+    #[Route('/statistique', name: 'statique')]
+    public function stat()
+    {
+
+        $repository = $this->getDoctrine()->getRepository(Annonce::class);
+        $annonce= $repository->findAll();
+
+        $em = $this->getDoctrine()->getManager();
+
+
+        $pr1 = 0;
+        $pr2 = 0;
+
+
+        foreach ($annonce as $annonce) {
+            if ($annonce->getCategorie() == "Appareil médical")  :
+
+                $pr1 += 1;
+            else:
+
+                $pr2 += 1;
+
+            endif;
+
+        }
+
+        $pieChart = new PieChart();
+        $pieChart->getData()->setArrayToDataTable(
+            [['etat ', 'nom'],
+                ['la catégorie de lannoce de type Appareil médical', $pr1],
+                ['la catégorie de lannoce ne sont pas de type Appareil médical', $pr2],
+            ]
+        );
+        $pieChart->getOptions()->setTitle('Catégories des annonces');
+        $pieChart->getOptions()->setHeight(1000);
+        $pieChart->getOptions()->setWidth(1400);
+        $pieChart->getOptions()->getTitleTextStyle()->setBold(true);
+        $pieChart->getOptions()->getTitleTextStyle()->setColor('green');
+        $pieChart->getOptions()->getTitleTextStyle()->setItalic(true);
+        $pieChart->getOptions()->getTitleTextStyle()->setFontName('Arial');
+        $pieChart->getOptions()->getTitleTextStyle()->setFontSize(30);
+
+
+
+        return $this->render('aadmin/stat.html.twig', array('piechart' => $pieChart));
+    }
+
+
     #[Route('/removeannonceback/{id}', name: 'annonce_remback')]
     public function removeannback(ManagerRegistry $doctrine, $id, AnnonceRepository $repository)
     {
