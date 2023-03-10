@@ -1,7 +1,5 @@
-
 {% extends 'base.html.twig' %}
 {% block body %}
-    <!-- ======= Breadcrumbs ======= -->
     <section id="breadcrumbs" class="breadcrumbs">
 
     </section><!-- End Breadcrumbs -->
@@ -32,12 +30,13 @@
                 <div class="col-lg-8 entries">
                     {% for event in tabEvent %}
                         {% if not is_granted('IS_AUTHENTICATED_FULLY') %}
-                        <a  href="{{ path('app_login')}}">Participer a un evenement </a>
+                            <a  href="{{ path('app_login')}}">Participer a un evenement </a>
                         {% endif %}
                         {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-                        <a  href="{{ path('add_Participation',{'id':event.id}) }}">Participer a un evenement </a>
+                            <a  href="{{ path('add_Participation',{'id':event.id}) }}" class="btn btn-success">Participer </a>
                         {% endif %}
                         <article class="entry">
+                            <div class="entry-img">
                                 <img src="{{ asset('uploads/evenements/'~event.image) }}" style=" margin-left: 55px ; margin-top: 20px " alt=""/>
                             </div>
 

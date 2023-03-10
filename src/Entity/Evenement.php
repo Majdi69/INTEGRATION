@@ -28,16 +28,19 @@ class Evenement
         minMessage: 'le nom doit etre supperieur à {{ limit }} caracteres',
         maxMessage: 'le nom ne doit pas dépasser {{ limit }} caracteres',)]
     #[Assert\NotNull]
+    #[Assert\NotBlank(message:"Nom est obligatoire")]
     #[Groups("post:read")]
     private ?string $nom = null;
 
     #[ORM\Column(length: 255)]
     #[Groups("post:read")]
+    #[Assert\NotBlank(message:"Lieu est obligatoire")]
     private ?string $lieu = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     #[Assert\GreaterThan("today")]
     #[Groups("post:read")]
+    #[Assert\NotBlank(message:"Date est obligatoire")]
     private ?\DateTimeInterface $date = null;
 
     #[ORM\Column(length: 255)]
@@ -54,6 +57,7 @@ class Evenement
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     #[Assert\GreaterThan("today")]
+    #[Assert\NotBlank(message:"Date est obligatoire")]
     #[Groups("post:read")]
     private ?\DateTimeInterface $datefin = null;
 
@@ -68,6 +72,7 @@ class Evenement
 
     #[ORM\Column]
     #[Groups("post:read")]
+    #[Assert\NotBlank(message:"nombre de participation est obligatoire")]
     private ?int $nbrPersonnes = null;
 
     #[ORM\ManyToOne(inversedBy: 'evenements')]

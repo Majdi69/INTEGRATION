@@ -20,22 +20,25 @@ class Participation
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message:"nom est obligatoire")]
     private ?string $nom = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message:"prenom est obligatoire")]
     private ?string $prenom = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message:"adresse est obligatoire")]
     private ?string $adresse = null;
 
     #[ORM\Column(length: 255)]
-    #[Asssert\NotBlank(message:"Email is required")]
+    #[Asssert\NotBlank(message:"Email est obligatoire")]
     #[Assert\Email(message:"l'email '{{value}}' est non valid.")]
     private ?string $email = null;
 
     #[ORM\Column(length: 8)]
-    #[Asssert\NotBlank(message:"numero is required")]
     #[Assert\Positive(message:"numero doit etre positive")]
+    #[Assert\NotBlank(message:"numero est obligatoire")]
     #[Assert\NotNull]
     private ?int $numero = null;
 
@@ -47,6 +50,7 @@ class Participation
     private ?Evenement $evenement = null;
 
     #[ORM\Column]
+    #[Assert\NotBlank(message:"nombre de paticipants est obligatoire")]
     private ?int $nbrPersonnes = null;
 
 

@@ -1,0 +1,79 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Notifications{% endblock %}
+
+
+{% block body %}
+<!-- ======= Breadcrumbs ======= -->
+    <section id="breadcrumbs" class="breadcrumbs">
+        <div class="container">
+
+            <div class="d-flex justify-content-between align-items-center">
+            <h2>Ajouter Notifications</h2>
+
+
+        </div>
+
+    </div>
+</section><!-- End Breadcrumbs -->
+<div style="display:flex; align-items:center;justify-content: center ;  margin-bottom: 100px" >
+
+    <div class="row mt-5 justify-content-center" data-aos="fade-up">
+        <div class="col-lg-10">
+
+            {{ form_start(form,{'attr': {'novalidate': 'novalidate'}} ) }}
+
+
+            <div class="row">
+
+                <div class="col-md-6 form-group" style="margin-bottom: 11px"  >
+                    {{ form_label(form.title, null, {'label': 'Nom:'}) }}
+                    {{ form_widget(form.title,{'attr':{'class':'form-control'}}) }}
+                    {{ form_errors(form.title) }}
+
+                </div>
+                <div class="form-group mt-3">
+                    {{ form_label(form.message, null, {'label': 'Adresse:'}) }}
+                    {{ form_widget(form.message,{'attr':{'class':'form-control'}}) }}
+                    {{ form_errors(form.message) }}
+                </div>
+                <div class="col-md-6 form-group mt-3 mt-md-0" >
+                    {{ form_label(form.recipient, null, {'label': 'recepient:'}) }}
+                    {{ form_widget(form.recipient,{'attr':{'class':'form-control'}}) }}
+                    {{ form_errors(form.recipient) }}
+                </div>
+                <div class="col-md-6 form-group mt-3 mt-md-0" >
+                    {{ form_label(form.sender, null, {'label': 'sender:'}) }}
+                    {{ form_widget(form.sender,{'attr':{'class':'form-control'}}) }}
+                    {{ form_errors(form.sender) }}
+                </div>
+                <div class="col-md-6 form-group" style="margin-bottom: 11px">
+                    {{ form_label(form.typesang, null, {'label': 'Type Sang:'}) }}
+                    {{ form_widget(form.typesang,{'attr':{'class':'form-control'}}) }}
+                    {{ form_errors(form.typesang) }}
+
+                </div>
+            </div>
+
+
+
+            <div class="text-center" >
+
+                <button type="submit" style="background-color: #1bbd36 ;
+                     padding: 10px 24px ;
+                     color: #fff;
+                     transition: 0.4s;
+                     border: 0;
+                     border-radius: 4px;">Ajouter</button>
+
+
+            </div>
+
+            {{ form_end (form) }}
+
+        </div>
+
+    </div>
+
+</div>
+{% endblock %}

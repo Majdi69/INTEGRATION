@@ -183,7 +183,7 @@ class EvenementController extends AbstractController
         $dompdf = new Dompdf($pdfOptions);
 
         // Retrieve the HTML generated in our twig file
-        $html = $this->renderView('participation/pdf.html.twig', [
+        $html = $this->renderView('participation/pdfs.html.twig', [
             'tabPartic' => $repository->findAll(),
         ]);
 

@@ -1,0 +1,29 @@
+<table  border="1">
+    <thead >
+    <tr>
+        <th>Nom </th>
+        <th>Prenom </th>
+        <th>Adresse </th>
+        <th>Numero</th>
+        <th>Email</th>
+        <th>Evenement_id</th>
+
+
+
+
+    </tr>
+    </thead>
+    <tbody>
+    {% for participation in tabPartic  %}
+        <tr>
+            <td>Nom: {{ participation.nom }}</td>
+            <td>Prenom: {{ participation.prenom }}</td>
+            <td>Adresse: {{ participation.adresse }}</td>
+            <td>Numero :{{ participation.numero }}</td>
+            <td>Email: {{ participation.email }}</td>
+            <td>Evenement_id: {{ participation.evenement.id }}</td>
+
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

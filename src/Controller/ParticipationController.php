@@ -24,7 +24,7 @@ use App\Service\MailerService;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use App\Service\PdfService;
 use MercurySeries\FlashyBundle\FlashyNotifier;
-
+use App\Entity\PdfGeneratorService;
 
 
 
@@ -109,11 +109,31 @@ class ParticipationController extends AbstractController
                 "tabPartic"=>$participation));
     }
 
-    #[Route('/listPartic/pdf', name: 'participation.pdf')]
+   /* #[Route('/listPartic/pdf', name: 'participation.pdf')]
     public function generatePdfParticipation(Participation $participation = null, ParticipationRepository $repository,PdfService $pdf) {
         $participation= $repository->findAll();
-        $html = $this->render('participation/pdf.html.twig', ['tabPartic' => $participation]);
+        $html = $this->render('participation/pdfs.html.twig', ['tabPartic' => $participation]);
         $pdf->showPdfFile($html);
+    }*/
+    #[Route('/pdf/Participants', name: 'pdf')]
+    public function pdfServices(): Response
+    {
+        $participation= $this->getDoctrine()
+            ->getRepository(Participation::class)
+            ->findAll();
+
+
+
+        $html =$this->renderView('participation/pdfs.html.twig', ['tabPartic' => $participation]);
+        $pdfGeneratorService=new PdfGeneratorService();
+        $pdf = $pdfGeneratorService->generatePdf($html);
+
+        return new Response($pdf, 200, [
+            'Content-Type' => 'application/pdf',
+            'Content-Disposition' => 'inline; filename="document.pdf"',
+        ]);
+
+
     }
 
 

@@ -1,0 +1,129 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Localisation{% endblock %}
+
+
+{% block stylesheets %}
+
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.css') }}" />
+    <style>
+
+
+        #map{
+
+            width: 100%;
+            height: 50vh;
+        }
+    </style>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.js') }}"></script>
+{% endblock %}
+
+{% block body %}
+
+
+<div style="margin-top: 100px">
+    <button id="localisation">Ou suis-je ?</button>
+    <button id="carte">Sur la carte ?</button>
+    <div id="infos">Cliquer...</div>
+    <div id="map"></div>
+</div>
+
+{#    <div class="container">#}
+{#        <form id="marker-form">#}
+{#        <label for="name">Name:</label>#}
+{#        <input type="text" id="name" name="name" required>#}
+
+{#        <label for="lat">Latitude:</label>#}
+{#        <input type="text" id="lat" name="lat" required>#}
+
+{#        <label for="lng">Longitude:</label>#}
+{#        <input type="text" id="lng" name="lng" required>#}
+
+{#        <button type="submit">Add Marker</button>#}
+{#    </form>#}
+{#    </div>#}
+
+<script>
+    let maPosition ;
+    let inputLocalisation = document.getElementById('localisation');
+    let inputCarte = document.getElementById('carte');
+    let infos = document.getElementById('infos');
+
+
+    var map = L.map('map').setView([36.831232, 10.1384192], 6);
+
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="{{ asset('https://www.openstreetmap.org/copyright') }}">OpenStreetMap</a> contributors'
+    }).addTo(map);
+    {#L.marker([{{ 36.831232}}, {{ 10.1384192 }}])#}
+    {#.bindPopup("{{ banque_de_sang.nom }}")#}
+    {#    .bindPopup('Banque de sang<br> Cité Ibn khouldoun')#}
+    {#    .addTo(map);#}
+
+    {% for location in banque_de_sang %}
+    L.marker([{{ location.longitude }}, {{ location.latitude }}])
+        .bindPopup("{{ location.nom }}")
+        // .bindPopup('Home.<br> Easily customizable abdcd.')
+        .addTo(map);
+    {% endfor %}
+
+
+
+
+    inputLocalisation.onclick = function () {
+        navigator.geolocation.getCurrentPosition(function (position){
+
+            maPosition = position ;
+
+
+            console.table(maPosition.coords);
+            infos.innerHTML = `Position: ${maPosition.coords.latitude},
+            ${maPosition.coords.longitude}`
+        })
+    }
+    </script>
+    <script>
+    map.on('click', function(e) {
+        var lat = e.latlng.lat.toFixed(6);
+        var lng = e.latlng.lng.toFixed(6);
+
+        document.getElementById('lat').value = lat;
+        document.getElementById('lng').value = lng;
+    });
+
+    document.getElementById('marker-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        var name = document.getElementById('name').value;
+        var lat = document.getElementById('lat').value;
+        var lng = document.getElementById('lng').value;
+
+        // var marker = L.marker([lat, lng]).addTo(map);
+        // marker.bindPopup(name).openPopup();
+
+        fetch('{{ path('app_banque_de_sang_geo') }}', {
+            method: 'POST',
+            body: JSON.stringify({
+                name: name,
+                lat: lat,
+                lng: lng,
+            }),
+            headers: {
+                'Content-Type': 'application/json'
+
+
+
+
+
+</script>
+
+
+
+
+{% endblock %}
