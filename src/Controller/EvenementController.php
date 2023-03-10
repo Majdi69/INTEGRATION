@@ -49,7 +49,7 @@ class EvenementController extends AbstractController
 
 
     #[Route('/addevent', name: 'add_event')]
-    public function addevent(Request  $request,ManagerRegistry $doctrine ,SluggerInterface $slugger,FlashyNotifier $flashy)
+    public function addevent(Request $request, ManagerRegistry $doctrine , SluggerInterface $slugger, FlashyNotifier $flashy, \Symfony\Component\Security\Core\Security $security)
     {
         $event= new Evenement();
         $form= $this->createForm(EvenementType::class,$event);
@@ -81,6 +81,8 @@ class EvenementController extends AbstractController
             }
 
             $em=$doctrine->getManager();
+            $user = $security->getUser();
+            $event->setUser($user);
             $em->persist($event);
             $em->flush();
             $flashy->success('Event created!');

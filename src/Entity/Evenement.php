@@ -70,6 +70,9 @@ class Evenement
     #[Groups("post:read")]
     private ?int $nbrPersonnes = null;
 
+    #[ORM\ManyToOne(inversedBy: 'evenements')]
+    private ?Users $user = null;
+
 
 
 
@@ -201,6 +204,18 @@ class Evenement
     public function setNbrPersonnes(int $nbrPersonnes): self
     {
         $this->nbrPersonnes = $nbrPersonnes;
+
+        return $this;
+    }
+
+    public function getUser(): ?Users
+    {
+        return $this->user;
+    }
+
+    public function setUser(?Users $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }

@@ -12,6 +12,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Validator\Constraints\Date;
 
 class CommentaireController extends AbstractController
@@ -25,7 +26,7 @@ class CommentaireController extends AbstractController
     }
 
     #[Route('/addcommForm/{idAnnonce}', name: 'addcommForm')]
-    public function addcommForm(Request $request, ManagerRegistry $doctrine, $idAnnonce, AnnonceRepository $annonceRepository)
+    public function addcommForm(Request $request, ManagerRegistry $doctrine, $idAnnonce, AnnonceRepository $annonceRepository,Security $security)
     {
         $comm = new Commentaire();
         $form = $this->createForm(CommentaireType::class, $comm);
@@ -35,6 +36,9 @@ class CommentaireController extends AbstractController
             $annonce = $annonceRepository->find($idAnnonce);
             $comm->setAnnonce($annonce);
             $comm->setDate(new \DateTime('now'));
+
+            $user = $security->getUser();
+            $comm->setUser($user);
            // $userId=$request->get('user');
            // var_dump($userId);
             //die();
